@@ -383,6 +383,57 @@ HRESULT DxAttBoneRender::Render ( const LPDIRECT3DDEVICEQ pd3dDevice, const D3DX
 	D3DXMatrixMultiply( &matLocalRot, &matScale, &matRot );
 
 	DxSkinAniControl::Render ( matLocalRot );
+
+	g_dwLOD = 0;
+#ifdef USE_SKINMESH_LOD
+	if( bShadow )
+	{
+		g_dwLOD = 1;
+	}
+	else if( g_dwHIGHDRAW_NUM > 10 )
+	{
+		D3DXVECTOR3 vPos;
+		D3DXVECTOR3& vFromPt = DxViewPort::GetInstance().GetFromPt();
+		vPos.x = matLocalRot._41;
+		vPos.y = matLocalRot._42;
+		vPos.z = matLocalRot._43;
+
+		float fLengthSRC = DxViewPort::GetInstance().GetDistance();
+		fLengthSRC += 30.f;
+		fLengthSRC = fLengthSRC*fLengthSRC;
+		
+		D3DXVECTOR3 vDir = vPos - vFromPt;
+		float fLength = vDir.x*vDir.x + vDir.y*vDir.y + vDir.z*vDir.z;
+		if( fLength > fLengthSRC )
+		{
+			g_dwLOD = 1;
+		}
+	}
+	else
+	{
+		D3DXVECTOR3 vPos;
+		D3DXVECTOR3& vFromPt = DxViewPort::GetInstance().GetFromPt();
+		vPos.x = matLocalRot._41;
+		vPos.y = matLocalRot._42;
+		vPos.z = matLocalRot._43;
+
+		float fLengthSRC = DxViewPort::GetInstance().GetDistance();
+		fLengthSRC += 150.f;
+		fLengthSRC = fLengthSRC*fLengthSRC;
+		
+		D3DXVECTOR3 vDir = vPos - vFromPt;
+		float fLength = vDir.x*vDir.x + vDir.y*vDir.y + vDir.z*vDir.z;
+		if( fLength > fLengthSRC )
+		{
+			g_dwLOD = 1;
+		}
+	}
+
+	if( g_dwLOD==0 )
+	{
+		++g_dwHIGHDRAW_NUM;
+	}
+#endif
 	
 	int nStart=0, nEnd = 0, nAdd = 0;
     
@@ -402,7 +453,7 @@ HRESULT DxAttBoneRender::Render ( const LPDIRECT3DDEVICEQ pd3dDevice, const D3DX
 	int i = nStart;
 
 
-	/*if( m_bWorldObj )
+	if( m_bWorldObj )
 	{
 		DWORD	dwNormalizeNormals;
 		pd3dDevice->GetRenderState( D3DRS_NORMALIZENORMALS, &dwNormalizeNormals );
@@ -440,7 +491,7 @@ HRESULT DxAttBoneRender::Render ( const LPDIRECT3DDEVICEQ pd3dDevice, const D3DX
 		}
 
 		return S_OK;
-	}*/
+	}
 
 	D3DLIGHTQ	sSrcLight00;
 	D3DLIGHTQ	sDestLight00;
@@ -508,7 +559,7 @@ HRESULT DxAttBoneRender::Render ( const LPDIRECT3DDEVICEQ pd3dDevice, const D3DX
 		
 		for ( int i=0; i<PIECE_REV01; ++i )
 		{
-			//m_PartArray[i].RenderGhosting ( pd3dDevice, this, matLocalRot );
+			m_PartArray[i].RenderGhosting ( pd3dDevice, this, matLocalRot );
 		}
 		m_EffAniPlayer.Render( pd3dDevice, this, matLocalRot );
 		m_EffKeepPlayer.Render( pd3dDevice );
@@ -523,7 +574,7 @@ HRESULT DxAttBoneRender::Render ( const LPDIRECT3DDEVICEQ pd3dDevice, const D3DX
 
 	for ( int i=0; i<PIECE_REV01; ++i )
 	{
-		//m_PartArray[i].RenderEff( pd3dDevice, m_pSkeleton, m_fScale );
+		m_PartArray[i].RenderEff( pd3dDevice, m_pSkeleton, m_fScale );
 	}
 
 	pd3dDevice->SetRenderState( D3DRS_FOGENABLE, dwFogEnable );

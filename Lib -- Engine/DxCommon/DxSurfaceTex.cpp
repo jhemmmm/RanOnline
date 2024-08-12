@@ -177,8 +177,6 @@ HRESULT DxSurfaceTex::InitDeviceObjects ( LPDIRECT3DQ pD3D, LPDIRECT3DDEVICEQ pd
 
 HRESULT DxSurfaceTex::RestoreDeviceObjects ( LPDIRECT3DDEVICEQ pd3dDevice )
 {
-
-	CDebugSet::WriteLine("DxSurfaceTex::RestoreDeviceObjects()");
 	HRESULT	hr = S_OK;
 
 	// Note :StretchRect Enable Test

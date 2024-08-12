@@ -848,11 +848,11 @@ HRESULT	DxEffCharLevel::Render_EX ( const LPDIRECT3DDEVICEQ pd3dDevice, SMATERIA
 
 	if( m_OpLEVEL[nLevel].m_Specular.m_bUse )
 	{
-		//Render_Specular( pd3dDevice, pMaterialPiece, m_OpLEVEL[nLevel].m_Specular, bPieceRender );
+		Render_Specular( pd3dDevice, pMaterialPiece, m_OpLEVEL[nLevel].m_Specular, bPieceRender );
 	}
 	if( m_OpLEVEL[nLevel].m_Reflect.m_bUse )
 	{
-		//Render_Reflect( pd3dDevice, pMaterialPiece, m_OpLEVEL[nLevel].m_Reflect, bPieceRender );
+		Render_Reflect( pd3dDevice, pMaterialPiece, m_OpLEVEL[nLevel].m_Reflect, bPieceRender );
 	}
 	if( m_OpLEVEL[nLevel].m_Flow.m_bUse )
 	{
@@ -860,7 +860,7 @@ HRESULT	DxEffCharLevel::Render_EX ( const LPDIRECT3DDEVICEQ pd3dDevice, SMATERIA
 	}
 	if( m_OpLEVEL[nLevel].m_Glow.m_bUse )
 	{
-		//Render_Glow( pd3dDevice, pMaterialPiece, m_OpLEVEL[nLevel].m_Glow, bPieceRender );
+		Render_Glow( pd3dDevice, pMaterialPiece, m_OpLEVEL[nLevel].m_Glow, bPieceRender );
 	}
 
 	return S_OK;
@@ -897,7 +897,6 @@ HRESULT	DxEffCharLevel::Render_Ambient ( const LPDIRECT3DDEVICEQ pd3dDevice, SMA
 			m_pMaterials[i].d3dMaterial.Diffuse.b = 1.f;
 		}
 	}
-	
 
 	m_pSavedSB_A->Capture();
 	m_pDrawSB_A->Apply();
@@ -930,7 +929,8 @@ HRESULT	DxEffCharLevel::Render_Specular ( const LPDIRECT3DDEVICEQ pd3dDevice, SM
 	HRESULT hr = S_OK;
 
 	//	빛위치
-	D3DXVECTOR3		vDir;
+	D3DXVECTOR3		vDir, vSrcDir, vWidth, vUp;
+	vSrcDir		= DxLightMan::GetInstance()->GetDirectLight()->m_Light.Direction;
 	vDir		= DxViewPort::GetInstance().GetLookDir();
 
 	vDir.y  = 0.4f;
@@ -1145,10 +1145,15 @@ HRESULT	DxEffCharLevel::Render_Flow ( const LPDIRECT3DDEVICEQ pd3dDevice, SMATER
 		}
 	}
 
-	pd3dDevice->SetTexture (1, DxSurfaceTex::GetInstance().m_pFlowTex );
+	pd3dDevice->SetTexture ( 1, DxSurfaceTex::GetInstance().m_pFlowTex );
 
 	m_pSavedSB_F->Capture();
 	m_pDrawSB_F->Apply();
+
+	//if ( bDest2X )	pd3dDevice->SetRenderState ( D3DRS_DESTBLEND,			D3DBLEND_DESTCOLOR );
+	//else			pd3dDevice->SetRenderState ( D3DRS_DESTBLEND,			D3DBLEND_ONE );
+
+	//pd3dDevice->SetRenderState ( D3DRS_DESTBLEND,			D3DBLEND_DESTCOLOR );
 
 	CHARSETTING sCharSetting;
 	sCharSetting.pMeshContainerBase = m_pmcMesh;
@@ -1195,6 +1200,31 @@ HRESULT	DxEffCharLevel::Render_Glow ( const LPDIRECT3DDEVICEQ pd3dDevice, SMATER
 
 	if ( g_bPREVIEW_CHAR_RENDER )
 		pd3dDevice->SetViewport( &ViewPort );
+
+	//m_pTempTex = NULL;
+	//if ( m_dwFlag & USE_GLOW_USER )		m_pTempTex = m_pGlowTex;
+
+	//if ( m_dwFlag & USE_ALL_TEX )
+	//{
+	//	for ( DWORD i=0; i<m_dwMaterials; i++ )
+	//	{
+	//		m_pMaterials[i].pEffTex = m_pTempTex;
+
+	//		m_pMaterials_EffUse[i] = m_pMaterials[i].bEffUse;	// Use 백업
+	//		m_pMaterials[i].bEffUse = TRUE;						// 설정
+	//	}
+	//}
+	//else //USE_SELECT_TEX
+	//{
+	//	for ( DWORD i=0; i<m_dwMaterials; i++ )
+	//	{
+	//		if ( m_pMaterials[i].bEffUse )	m_pMaterials[i].pEffTex = m_pTempTex;
+	//		else							m_pMaterials[i].pEffTex = m_pBlackTex;
+
+	//		m_pMaterials_EffUse[i] = m_pMaterials[i].bEffUse;	// Use 백업
+	//		m_pMaterials[i].bEffUse = TRUE;						// 설정
+	//	}
+	//}
 
 	for ( DWORD i=0; i<m_dwMaterials; i++ )
 	{
@@ -1246,6 +1276,24 @@ HRESULT	DxEffCharLevel::Render_Glow ( const LPDIRECT3DDEVICEQ pd3dDevice, SMATER
 		m_pMaterials[i].d3dMaterial.Diffuse.g = 1.f;
 		m_pMaterials[i].d3dMaterial.Diffuse.b = 1.f;
 	}
+
+	//if ( m_dwFlag & USE_ALL_TEX )
+	//{
+	//	for ( DWORD i=0; i<m_dwMaterials; i++ )
+	//	{
+	//		m_pMaterials[i].pEffTex = NULL;
+	//		m_pMaterials[i].bEffUse = m_pMaterials_EffUse[i];	// Use 백업
+	//	}
+	//}
+	//else //USE_SELECT_TEX
+	//{
+	//	for ( DWORD i=0; i<m_dwMaterials; i++ )
+	//	{
+	//		m_pMaterials[i].pEffTex = NULL;
+	//		m_pMaterials[i].bEffUse = m_pMaterials_EffUse[i];	// Use 백업
+	//		
+	//	}
+	//}
 
 	pd3dDevice->SetRenderTarget ( 0, pSrcSurface );
 	pd3dDevice->SetDepthStencilSurface ( pSrcZBuffer );
