@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1D0C0F1E-E6D3-4971-A209-7FD21E063295}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>LibHelper</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)[ Library ]\</OutDir>
+    <IntDir>$(SolutionDir)[ Library ]/[ BuildData ]/$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;NO_WARN_MBCS_MFC_DEPRECATION;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\=DX_Include;$(SolutionDir)\=Include;$(SolutionDir)\=Lua\include;$(SolutionDir)\=TbbLib\include;$(SolutionDir)\Lib -- ZLib\ZLib FIles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BmpButton.cpp" />
+    <ClCompile Include="Bubble.cpp" />
+    <ClCompile Include="CheckListBoxLog.cpp" />
+    <ClCompile Include="CJFlatComboBox.cpp" />
+    <ClCompile Include="CompactFdi.Cpp" />
+    <ClCompile Include="CoolDialogBar.cpp" />
+    <ClCompile Include="DIB.cpp" />
+    <ClCompile Include="DxControlFunc.cpp" />
+    <ClCompile Include="EtcFunction.cpp" />
+    <ClCompile Include="flatedit.cpp" />
+    <ClCompile Include="GetDxVer.cpp" />
+    <ClCompile Include="HLibColorValue.cpp" />
+    <ClCompile Include="HLibDataConvert.cpp" />
+    <ClCompile Include="HLibTimeFunctions.cpp" />
+    <ClCompile Include="HyperlinkStatic.cpp" />
+    <ClCompile Include="MacButtons.cpp" />
+    <ClCompile Include="MacProgressCtrl.cpp" />
+    <ClCompile Include="memdc.cpp" />
+    <ClCompile Include="MultiSlider.cpp" />
+    <ClCompile Include="ReportCtrl.cpp" />
+    <ClCompile Include="rol_clipboard.cpp" />
+    <ClCompile Include="Separator.cpp" />
+    <ClCompile Include="StColor.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StopWatch.cpp" />
+    <ClCompile Include="ToolBarEx.cpp" />
+    <ClCompile Include="WusDV_Util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BmpButton.h" />
+    <ClInclude Include="Bubble.h" />
+    <ClInclude Include="CheckListBoxLog.h" />
+    <ClInclude Include="CJFlatComboBox.h" />
+    <ClInclude Include="CompactFdi.h" />
+    <ClInclude Include="CoolDialogBar.h" />
+    <ClInclude Include="DIB.h" />
+    <ClInclude Include="DxControlFunc.h" />
+    <ClInclude Include="EtcFunction.h" />
+    <ClInclude Include="flatedit.h" />
+    <ClInclude Include="GetDxVer.h" />
+    <ClInclude Include="HLibColorValue.h" />
+    <ClInclude Include="HLibDataConvert.h" />
+    <ClInclude Include="HLibTimeFunctions.h" />
+    <ClInclude Include="HyperlinkStatic.h" />
+    <ClInclude Include="MacButtons.h" />
+    <ClInclude Include="MacProgressCtrl.h" />
+    <ClInclude Include="memdc.h" />
+    <ClInclude Include="MultiSlider.h" />
+    <ClInclude Include="ReportCtrl.h" />
+    <ClInclude Include="rol_clipboard.h" />
+    <ClInclude Include="Separator.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="StColor.h" />
+    <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="ToolBarEx.h" />
+    <ClInclude Include="WusDV_Util.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FCDB346C-38C9-4E5F-85ED-3D1096AF4F00}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ToolQuest</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)[ Tool ]\</OutDir>
+    <IntDir>$(SolutionDir)[ Tool ]/[ BuildData ]/$(ProjectName)\</IntDir>
+    <LibraryPath>$(SolutionDir)=TbbLib\lib;$(SolutionDir)=DX_Lib/x86;$(SolutionDir)=Library;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)\=DX_Include;$(SolutionDir)\=Include;$(SolutionDir)\=Lua\include;$(SolutionDir)\=TbbLib\include;$(SolutionDir)\Lib -- ZLib\ZLib FIles;$(SolutionDir)\Lib -- Network;$(SolutionDir)\Lib -- Client;$(SolutionDir)\Lib -- Client\NpcTalk;$(SolutionDir)\Lib -- Client\G-Logic;$(SolutionDir)\Lib -- Engine;$(SolutionDir)\Lib -- Engine\Common;$(SolutionDir)\Lib -- Engine\DxCommon;$(SolutionDir)\Lib -- Engine\DxCommon9;$(SolutionDir)\Lib -- Engine\DxEffect;$(SolutionDir)\Lib -- Engine\DxEffect\Char;$(SolutionDir)\Lib -- Engine\DxEffect\EffAni;$(SolutionDir)\Lib -- Engine\DxEffect\EffKeep;$(SolutionDir)\Lib -- Engine\DxEffect\EffProj;$(SolutionDir)\Lib -- Engine\DxEffect\Single;$(SolutionDir)\Lib -- Engine\Dxframe;$(SolutionDir)\Lib -- Engine\DxOctree;$(SolutionDir)\Lib -- Engine\DxSound;$(SolutionDir)\Lib -- Engine\G-Logic;$(SolutionDir)\Lib -- Engine\GUInterface;$(SolutionDir)\Lib -- Engine\Meshs;$(SolutionDir)\Lib -- Engine\NaviMesh;$(SolutionDir)\Lib -- Engine\Utils;$(SolutionDir)\Lib -- Helper;$(SolutionDir)\Lib -- ClientUI;$(SolutionDir)\Lib -- ClientUI\Interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <CompileAs>CompileAsCpp</CompileAs>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>dsound.lib;dinput.lib;dinput8.lib;d3dx9.lib;d3d9.lib;d3dxof.lib;ddraw.lib;dxguid.lib;dxerr9.lib;XInput.lib;imm32.lib;ogg_static.lib;vorbisfile_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Client -- BugTrap\Client -- BugTrap.vcxproj">
+      <Project>{a1644095-11b3-475f-93c1-33075092199b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib -- ClientUI\Lib -- ClientUI.vcxproj">
+      <Project>{f563ca98-072b-4fc3-911a-53d86ad4890b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib -- Client\Lib -- Client.vcxproj">
+      <Project>{7dc60117-79ec-4077-aad2-cedf528cde3d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib -- Engine\Lib -- Engine.vcxproj">
+      <Project>{39fabbd1-ecb5-451f-9601-4a38b98c4f1b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib -- Helper\Lib -- Helper.vcxproj">
+      <Project>{1d0c0f1e-e6d3-4971-a209-7fd21e063295}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib -- Network\Lib -- Network.vcxproj">
+      <Project>{d41f3f2e-0c2d-4229-9698-2cd5bf3dac01}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DlgCrow.cpp" />
+    <ClCompile Include="DlgInput.cpp" />
+    <ClCompile Include="DlgItem.cpp" />
+    <ClCompile Include="DlgItemEdit.cpp" />
+    <ClCompile Include="DlgMap.cpp" />
+    <ClCompile Include="DlgMobGen.cpp" />
+    <ClCompile Include="DlgSearch.cpp" />
+    <ClCompile Include="DlgSkill.cpp" />
+    <ClCompile Include="EditorQuest.cpp" />
+    <ClCompile Include="EditorQuestDlg.cpp" />
+    <ClCompile Include="PageQuestBasic.cpp" />
+    <ClCompile Include="PageQuestBasicEx.cpp" />
+    <ClCompile Include="PageQuestStep.cpp" />
+    <ClCompile Include="PageQuestStepEx.cpp" />
+    <ClCompile Include="PageQuestTree.cpp" />
+    <ClCompile Include="PageQuestTreeEx.cpp" />
+    <ClCompile Include="SheetWithTab.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DlgCrow.h" />
+    <ClInclude Include="DlgInput.h" />
+    <ClInclude Include="DlgItem.h" />
+    <ClInclude Include="DlgItemEdit.h" />
+    <ClInclude Include="DlgMap.h" />
+    <ClInclude Include="DlgMobGen.h" />
+    <ClInclude Include="DlgSearch.h" />
+    <ClInclude Include="DlgSkill.h" />
+    <ClInclude Include="EditorQuest.h" />
+    <ClInclude Include="EditorQuestDlg.h" />
+    <ClInclude Include="PageQuestBasic.h" />
+    <ClInclude Include="PageQuestStep.h" />
+    <ClInclude Include="PageQuestTree.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SheetWithTab.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EditorQuest.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

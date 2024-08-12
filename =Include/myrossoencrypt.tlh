@@ -1,0 +1,63 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 12.00.31101.0 (3149c0bd).
+//
+// d:\games\ran online\mmorpg - copy\[ library ]\[ builddata ]\lib -- network\myrossoencrypt.tlh
+//
+// C++ source equivalent of Win32 type library MyRossoEncrypt.dll
+// compiler-generated file created 08/08/24 at 05:43:50 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("f6d24717-512e-4df2-96f5-d5628e13ba82"))
+/* LIBID */ __MYROSSOENCRYPTLib;
+struct /* coclass */ MyRossoEncrypt;
+struct __declspec(uuid("4f3642d1-5aff-499a-92da-8d3aef5ee32b"))
+/* dual interface */ IMyRossoEncrypt;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(IMyRossoEncrypt, __uuidof(IMyRossoEncrypt));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("0f0379bf-645d-4b48-98cc-2a03002132dc"))
+MyRossoEncrypt;
+    // [ default ] interface IMyRossoEncrypt
+
+struct __declspec(uuid("4f3642d1-5aff-499a-92da-8d3aef5ee32b"))
+IMyRossoEncrypt : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall Encode (
+        /*[in]*/ BSTR org,
+        /*[out,retval]*/ BSTR * dest ) = 0;
+      virtual HRESULT __stdcall Decode (
+        /*[in]*/ BSTR org,
+        /*[out,retval]*/ BSTR * dest ) = 0;
+};
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_MYROSSOENCRYPTLib =
+    {0xf6d24717,0x512e,0x4df2,{0x96,0xf5,0xd5,0x62,0x8e,0x13,0xba,0x82}};
+extern "C" const GUID __declspec(selectany) CLSID_MyRossoEncrypt =
+    {0x0f0379bf,0x645d,0x4b48,{0x98,0xcc,0x2a,0x03,0x00,0x21,0x32,0xdc}};
+extern "C" const GUID __declspec(selectany) IID_IMyRossoEncrypt =
+    {0x4f3642d1,0x5aff,0x499a,{0x92,0xda,0x8d,0x3a,0xef,0x5e,0xe3,0x2b}};
+
+#pragma pack(pop)

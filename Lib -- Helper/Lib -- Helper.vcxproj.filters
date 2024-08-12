@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BmpButton.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Bubble.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckListBoxLog.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="CJFlatComboBox.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="CompactFdi.Cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="CoolDialogBar.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="DIB.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="DxControlFunc.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="EtcFunction.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="flatedit.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="GetDxVer.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HyperlinkStatic.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="MacButtons.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="MacProgressCtrl.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="memdc.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiSlider.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportCtrl.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="rol_clipboard.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Separator.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="StColor.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatch.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolBarEx.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="WusDV_Util.cpp">
+      <Filter>MFCHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HLibColorValue.cpp">
+      <Filter>LibHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HLibDataConvert.cpp">
+      <Filter>LibHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HLibTimeFunctions.cpp">
+      <Filter>LibHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BmpButton.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Bubble.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckListBoxLog.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="CJFlatComboBox.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="CompactFdi.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="CoolDialogBar.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="DIB.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="DxControlFunc.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="EtcFunction.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="flatedit.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="GetDxVer.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="HyperlinkStatic.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="MacButtons.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="MacProgressCtrl.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="memdc.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiSlider.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportCtrl.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="rol_clipboard.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Separator.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="StColor.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolBarEx.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="WusDV_Util.h">
+      <Filter>MFCHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="HLibColorValue.h">
+      <Filter>LibHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="HLibDataConvert.h">
+      <Filter>LibHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="HLibTimeFunctions.h">
+      <Filter>LibHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="LibHelper">
+      <UniqueIdentifier>{5a333d61-db98-472f-b941-2b50d048347c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MFCHelper">
+      <UniqueIdentifier>{16f794ed-17e0-4ddc-8587-bd677580b1fc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
