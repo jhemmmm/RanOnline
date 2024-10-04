@@ -83,6 +83,7 @@ BEGIN
     BUTTON      ID_LEVEL_NEW
     SEPARATOR
     BUTTON      ID_LEVEL_OPEN
+    BUTTON      ID_STATIC_MESH_OPEN
     BUTTON      ID_LEVEL_OPENEX
     BUTTON      ID_LEVEL_SAVE
     SEPARATOR
@@ -103,6 +104,7 @@ BEGIN
     BEGIN
         MENUITEM "New",                         ID_LEVEL_NEW
         MENUITEM "Open",                        ID_LEVEL_OPEN
+        MENUITEM "Open Static Mesh",            ID_STATIC_MESH_OPEN
         MENUITEM "OpenEx",                      ID_LEVEL_OPENEX
         MENUITEM "Save",                        ID_LEVEL_SAVE
         MENUITEM SEPARATOR

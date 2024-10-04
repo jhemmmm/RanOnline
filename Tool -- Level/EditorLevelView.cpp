@@ -46,6 +46,7 @@ BEGIN_MESSAGE_MAP(CEditorLevelView, CView)
 	ON_WM_SETCURSOR()
 	ON_WM_SIZE()
 	ON_COMMAND(ID_LEVEL_NEW, OnLevelNew)
+	ON_COMMAND(ID_STATIC_MESH_OPEN, OnStaticMeshOpen)
 	ON_COMMAND(ID_LEVEL_OPEN, OnLevelOpen)
 	ON_COMMAND(ID_LEVEL_OPENEX, OnLevelOpenex)
 	ON_COMMAND(ID_LEVEL_SAVE, OnLevelSave)
@@ -256,6 +257,21 @@ void CEditorLevelView::OnLevelNew()
 	m_strFileName = "";
 	CFrameWnd * pFrame = (CFrameWnd *)(AfxGetApp()->m_pMainWnd);
 	pFrame->SetWindowText( m_strFileName.c_str() );
+}
+
+void CEditorLevelView::OnStaticMeshOpen()
+{
+	CString szFilter = "wld|*.WLD|";
+	CFileDialog dlg(TRUE, ".wld", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter, this);
+	dlg.m_ofn.lpstrInitialDir = "F:\\EP6_Source\\[ Tool ]\\data\\map";
+	if (dlg.DoModal() == IDOK)
+	{
+		SAFE_DELETE(m_pStaticMesh);
+
+		m_pStaticMesh = new DxStaticMesh;
+		m_pStaticMesh->Load_File(m_pd3dDevice, dlg.GetPathName());
+		m_pStaticMesh->StartThread(m_pd3dDevice);
+	}
 }
 
 void CEditorLevelView::OnLevelOpen()

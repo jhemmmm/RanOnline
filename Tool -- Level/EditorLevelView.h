@@ -6,6 +6,7 @@
 class DxLandMan;
 class GLLandMan;
 class GLMobSchedule;
+class DxStaticMesh;
 
 #include "GLMapList.h"
 #include "DxEditBox.h"
@@ -95,6 +96,8 @@ public:
 	GLMobSchedule*	m_pSelectSched;
 	DxLandGate*		m_pSelectedGate;
 
+	DxStaticMesh*   m_pStaticMesh;
+
 	DxEditBox		m_DxEditBox;
 	DxEditMat		m_DxEditMat;
 	DxObjectMRS		m_DxEditMRS;
@@ -141,6 +144,7 @@ protected:
 public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);	
+	afx_msg void OnStaticMeshOpen();
 	afx_msg void OnLevelNew();
 	afx_msg void OnLevelOpen();
 	afx_msg void OnLevelOpenex();

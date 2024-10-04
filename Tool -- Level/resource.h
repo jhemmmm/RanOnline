@@ -299,6 +299,8 @@
 #define ID_FILE_WLDSAVE                 32860
 #define ID_RENDER_RENDERGROUPLINE       32861
 
+#define ID_STATIC_MESH_OPEN				32862
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED

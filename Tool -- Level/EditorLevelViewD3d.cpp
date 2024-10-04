@@ -382,6 +382,9 @@ HRESULT CEditorLevelView::FrameMove()
 	if ( m_pDxLandMan ) 
 		m_pDxLandMan->FrameMove( m_fTime, m_fElapsedTime );
 
+	//if (m_pStaticMesh)
+		//m_pStaticMesh->FrameMove(m_fElapsedTime);
+
 	DxEffProjMan::GetInstance().FrameMove( m_fElapsedTime );
 	DxViewPort::GetInstance().FrameMove ( m_fTime, m_fElapsedTime );
 
@@ -516,6 +519,14 @@ HRESULT CEditorLevelView::Render()
 
 		CLIPVOLUME &CV = DxViewPort::GetInstance().GetClipVolume ();
 
+		/*CDebugSet::WriteLine("ClipVolume: ");
+		CDebugSet::WriteLine("Left = a: %f, b: %f, c: %f, d: %f", CV.pLeft.a, CV.pLeft.b, CV.pLeft.c, CV.pLeft.d);
+		CDebugSet::WriteLine("Right = a: %f, b: %f, c: %f, d: %f", CV.pRight.a, CV.pRight.b, CV.pRight.c, CV.pRight.d);
+		CDebugSet::WriteLine("Top = a: %f, b: %f, c: %f, d: %f", CV.pTop.a, CV.pTop.b, CV.pTop.c, CV.pTop.d);
+		CDebugSet::WriteLine("Bottom = a: %f, b: %f, c: %f, d: %f", CV.pBottom.a, CV.pBottom.b, CV.pBottom.c, CV.pBottom.d);
+		CDebugSet::WriteLine("Near = a: %f, b: %f, c: %f, d: %f", CV.pNear.a, CV.pNear.b, CV.pNear.c, CV.pNear.d);
+		CDebugSet::WriteLine("Far = a: %f, b: %f, c: %f, d: %f", CV.pFar.a, CV.pFar.b, CV.pFar.c, CV.pFar.d);*/
+
 		DxWeatherMan::GetInstance()->Render_Prev ( m_pd3dDevice );
 
 		if ( m_pDxLandMan )	
@@ -528,6 +539,12 @@ HRESULT CEditorLevelView::Render()
 
 		if ( m_pDxLandMan )
 			m_pDxLandMan->Render( m_pd3dDevice, CV ); 
+
+		if (m_pStaticMesh)
+		{
+			m_pStaticMesh->Render_THREAD_(m_pd3dDevice, CV);
+			//m_pStaticMesh->Render_THREAD_Alpha(m_pd3dDevice, CV);
+		}
 
 		DxShadowMap::GetInstance().ClearShadow( m_pd3dDevice );
 
