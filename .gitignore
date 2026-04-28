@@ -1,13 +1,14 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿.vs/
+ipch/
 
-/.vs
-/ipch
-/ipch/*
-/[ Client ]
-/[ Client ]/*
-/[ Library ]
-/[ Library ]/*
-/[ Tool ]
-/[ Tool ]/*
+/\[ Client \]/
+/\[ Library \]/
+/\[ Tool \]/
+*.aider.*
+.gitnexus
+/.claude/skills/gitnexus
+/AGENTS.md
+/CLAUDE.md
+/mempalace.yaml
+/RanOnline_EP6.sdf
+/RanOnline_EP6.v12.suo

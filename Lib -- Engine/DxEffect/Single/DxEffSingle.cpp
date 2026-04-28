@@ -75,7 +75,7 @@ HRESULT	DxEffSingle::Render ( LPDIRECT3DDEVICEQ pd3dDevice, D3DXMATRIX &matComb 
 	GASSERT(0&&"DxEffSingle::Render() not defined!");
 
 	if ( m_pChild )		m_pChild->Render ( pd3dDevice, matComb );
-	//if ( m_pSibling )	m_pSibling->Render ( pd3dDevice, matComb ); -- [ERROR CODE]
+	if ( m_pSibling )	m_pSibling->Render ( pd3dDevice, matComb ); //-- [ERROR CODE]
 
 	return S_OK;
 }
