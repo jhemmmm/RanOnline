@@ -52,6 +52,11 @@ public:
 	BOOL			m_bRenderBone;
 	std::string		m_strTraceSelect;
 
+	int m_currentFileIndex;
+	std::vector<CString> m_fileList;
+	void LoadNextFile();
+	void LoadPrevFile();
+
 public:
 	EMCOLLISION_TYPE		m_emCOL;
 	BOOL		m_bRenderPlane;
@@ -90,6 +95,7 @@ public:
 	virtual HRESULT Render3DEnvironment();
 	HRESULT ConfirmDevice( D3DCAPSQ*, DWORD, D3DFORMAT );
 
+	void LoadFile(std::string strFileName);
 	HRESULT OneTimeSceneInit();
 	HRESULT CreateObjects();
 	HRESULT InitDeviceObjects();

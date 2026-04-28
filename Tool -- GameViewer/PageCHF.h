@@ -25,6 +25,8 @@ private:
 	BOOL			m_bDlgInit;
 	CFont*			m_pFont;
 
+	int m_currentFileIndex;
+	std::vector<CString> m_fileList;
 public:
 	CListCtrl		m_List_Anim;
 	CListCtrl		m_List_Piece;
@@ -36,6 +38,7 @@ public:
 	void	DataShow();
 	void	DataShowAnim();
 	void	DataShowPiece();
+	void	LoadNextFile();
 
 public:
 	void	SetCallPage ( int CallPage ) { m_CallPage = CallPage; }
@@ -56,4 +59,5 @@ public:
 	afx_msg void OnBnClickedButtonAbf();
 	afx_msg void OnBnClickedButtonPieceEffskinChf();
 	afx_msg void OnBnClickedButtonPieceVcf();
+	afx_msg void OnBnClickedButtonChfNext();
 };

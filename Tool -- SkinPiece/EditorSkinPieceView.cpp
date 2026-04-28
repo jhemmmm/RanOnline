@@ -221,6 +221,31 @@ void CEditorSkinPieceView::OnFileNew()
 	PieceNew( "New Piece" );
 }
 
+void CEditorSkinPieceView::LoadNextFile()
+{
+	if (m_fileList.empty())
+		return;
+
+	if (m_currentFileIndex >= (int)m_fileList.size())
+		m_currentFileIndex = 0;
+
+	m_currentFileIndex++;
+
+	LoadFile(m_fileList[m_currentFileIndex].GetString());
+}
+
+void CEditorSkinPieceView::LoadPrevFile()
+{
+	if (m_fileList.empty())
+		return;
+
+	if (m_currentFileIndex <= 0)
+		m_currentFileIndex = (int)m_fileList.size();
+
+	m_currentFileIndex--;
+
+	LoadFile(m_fileList[m_currentFileIndex].GetString());
+}
 void CEditorSkinPieceView::OnFileOpen()
 {
 	CString szFilterInput = "Piece (*.cps,*.aps,*.vps)|*.cps;*.aps;*.vps|";
@@ -228,45 +253,74 @@ void CEditorSkinPieceView::OnFileOpen()
 	dlgInput.m_ofn.lpstrInitialDir = DxSkinPieceContainer::GetInstance().GetPath();
 	if ( dlgInput.DoModal() != IDOK ) return;
 
-	if ( m_pPiece )
+	LoadFile(std::string(dlgInput.GetFileName()));
+
+	// Get the directory of the selected file
+	CString directoryPath = dlgInput.GetFolderPath();
+
+	// Find all CHF files in the directory
+	m_fileList.clear();
+	CFileFind finder;
+
+	// Exentions
+	std::string ext[] = { "\\*.cps", "\\*.aps", "\\*.vps" };
+
+	for (int i = 0; i < ext->size(); ++i)
+	{
+		BOOL bWorking = finder.FindFile(directoryPath + ext[i].c_str());
+		while (bWorking)
+		{
+			bWorking = finder.FindNextFile();
+			if (!finder.IsDots() && !finder.IsDirectory())
+			{
+				m_fileList.push_back(finder.GetFileName().GetString());
+			}
+		}
+	}
+	m_currentFileIndex = 1;
+}
+
+void CEditorSkinPieceView::LoadFile(std::string strFileName)
+{
+	if (m_pPiece)
 	{
 		m_pPiece->ClearAll();
 		m_pPiece->InvalidateDeviceObjects();
 		m_pPiece->DeleteDeviceObjects();
 	}
 
-	SAFE_DELETE( m_pPiece );
+	SAFE_DELETE(m_pPiece);
 
-	m_strFileName = dlgInput.GetFileName();
+	m_strFileName = strFileName;
 	DxBoneCollector::GetInstance().CleanUp();
-	DxSkinMeshMan::GetInstance().CleanUp( m_pd3dDevice );
+	DxSkinMeshMan::GetInstance().CleanUp(m_pd3dDevice);
 
 	m_pPiece = new DxSkinPiece;
-	m_pPiece->InitDeviceObjects( m_pd3dDevice );
-	HRESULT hr = m_pPiece->LoadPiece ( m_strFileName.c_str(), m_pd3dDevice, false/*, false*/ );
-	if ( FAILED( hr ) )
+	m_pPiece->InitDeviceObjects(m_pd3dDevice);
+	HRESULT hr = m_pPiece->LoadPiece(m_strFileName.c_str(), m_pd3dDevice, false/*, false*/);
+	if (FAILED(hr))
 	{
-		SAFE_DELETE( m_pPiece );
-		CDebugSet::MsgBox( "Error Loading Piece file :%s", m_strFileName.c_str() );
+		SAFE_DELETE(m_pPiece);
+		CDebugSet::MsgBox("Error Loading Piece file :%s", m_strFileName.c_str());
 		m_strFileName = "";
 	}
 
-	m_vCOL = D3DXVECTOR3( 0.0f, 0.0f, 0.0f );
+	m_vCOL = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_dwCOL = COL_ERR;
 	g_strPICK_BONE = "";
 	m_strTraceSelect = "";
 	m_bEditMRS = FALSE;
-	m_DxEditMRS.SetMatrix( NULL );
+	m_DxEditMRS.SetMatrix(NULL);
 
-	CFrameWnd * pFrame = (CFrameWnd *)(AfxGetApp()->m_pMainWnd);
-	if ( pFrame )
-		pFrame->SetWindowText( m_strFileName.c_str() );
+	CFrameWnd* pFrame = (CFrameWnd*)(AfxGetApp()->m_pMainWnd);
+	if (pFrame)
+		pFrame->SetWindowText(m_strFileName.c_str());
 
-	CMainFrame	*pMainFrame = (CMainFrame*) AfxGetMainWnd();
-	if ( pMainFrame )
+	CMainFrame* pMainFrame = (CMainFrame*)AfxGetMainWnd();
+	if (pMainFrame)
 	{
-		CsheetWithTab*  pSheetTab = pMainFrame->m_wndEditor.m_pSheetTab;
-		if ( pSheetTab )
+		CsheetWithTab* pSheetTab = pMainFrame->m_wndEditor.m_pSheetTab;
+		if (pSheetTab)
 			pSheetTab->ShowMain();
 	}
 }

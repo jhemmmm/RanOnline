@@ -26,6 +26,8 @@ private:
 	BOOL			m_bDlgInit;
 	CFont*			m_pFont;
 
+	int m_currentFileIndex;
+	std::vector<CString> m_fileList;
 public:
 	void	SetCallPage ( int CallPage ) { m_CallPage = CallPage; }
 	void	SetSheetTab ( CsheetWithTab* pSheetTab ) { m_pSheetTab = pSheetTab; }
@@ -35,9 +37,10 @@ public:
 
 public:
 	void	LoadFile( std::string strFile );
+	void	LoadNextFile();
 	void	DataReset();
 	void	DataShow();
-	int	ShowEffSingle( int nIndex, DxEffSingle* pSingle );
+	int		ShowEffSingle( int nIndex, DxEffSingle* pSingle );
 
 public:
 	virtual BOOL OnInitDialog();
@@ -46,4 +49,5 @@ public:
 	afx_msg void OnBnClickedButtonEgpReload();
 	afx_msg void OnBnClickedButtonEgpPlay();
 	afx_msg void OnBnClickedButtonEgpSave();
+	afx_msg void OnBnClickedButtonEgpNext();
 };

@@ -34,6 +34,7 @@
 #include "DxCubeMap.h"
 #include "DxDynamicVB.h"
 #include "DXUTmisc.h"
+#include "DxEnvironment.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -353,7 +354,6 @@ HRESULT CGameViewerView::FrameMove()
 	if ( m_pSkinChar )	
 	{
 		m_pSkinChar->FrameMove( m_fTime, m_fElapsedTime, TRUE, FALSE, m_bAniAttack );
-		m_pSkinChar->SetPosition( D3DXVECTOR3( 0.0f, 10.0f, 0.0f ) );
 
 		if ( m_pSkinChar->GETCURANIMNODE() )
 		{
@@ -784,6 +784,8 @@ HRESULT CGameViewerView::Render()
 		DxGlowMan::GetInstance().RenderTex ( m_pd3dDevice );
 		DxGlowMan::GetInstance().Render ( m_pd3dDevice );
 		DxGlowMan::GetInstance().RenderBURN( m_pd3dDevice );
+		DxEnvironment::GetInstance().UserToRefraction(m_pd3dDevice);
+		DxEnvironment::GetInstance().RenderWave(m_pd3dDevice, DxEffectMan::GetInstance().GetBumpTexture());
 		DxPostProcess::GetInstance().Render( m_pd3dDevice );
 		DxEffProjMan::GetInstance().Render( m_pd3dDevice );
 

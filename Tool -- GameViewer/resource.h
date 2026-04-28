@@ -56,6 +56,8 @@
 #define IDC_CHECK_FLAG_AUTOAABBBOX      1025
 #define IDC_BUTTON_EGP_LOAD2            1026
 #define IDC_BUTTON_EGP_SAVE             1026
+#define IDC_BUTTON_EGP_NEXT             1032
+#define IDC_BUTTON_CHF_NEXT				1033
 #define IDC_BUTTON_ABF_LOAD             1026
 #define IDC_BUTTON_PIECE_EFFSKIN_CHF    1027
 #define IDC_BUTTON_PIE_LOAD             1027

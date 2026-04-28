@@ -38,6 +38,7 @@ BEGIN_MESSAGE_MAP(CPageEGP, CPropertyPage)
 	ON_BN_CLICKED(IDC_BUTTON_EGP_RELOAD, OnBnClickedButtonEgpReload)
 	ON_BN_CLICKED(IDC_BUTTON_EGP_PLAY, OnBnClickedButtonEgpPlay)
 	ON_BN_CLICKED(IDC_BUTTON_EGP_SAVE, OnBnClickedButtonEgpSave)
+	ON_BN_CLICKED(IDC_BUTTON_EGP_NEXT, OnBnClickedButtonEgpNext)
 END_MESSAGE_MAP()
 
 
@@ -69,6 +70,17 @@ void CPageEGP::LoadFile( std::string strFile )
 		DataReset();
 	}
 }
+
+void CPageEGP::LoadNextFile()
+{
+
+	if (m_fileList.empty())
+		return;
+
+	LoadFile(std::string(m_fileList[m_currentFileIndex]));
+	m_currentFileIndex++;
+}
+
 
 void CPageEGP::DataReset()
 {
@@ -146,12 +158,34 @@ int CPageEGP::ShowEffSingle( int nIndex, DxEffSingle* pSingle )
 void CPageEGP::OnBnClickedButtonEgpLoad()
 {
 	CString szFilter = "Effect (*.egp)|*.egp;|";
-	CFileDialog dlg ( TRUE,".EGP", NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, szFilter, this );
+	CFileDialog dlg(TRUE, ".EGP", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter, this);
 
 	dlg.m_ofn.lpstrInitialDir = DxEffSinglePropGMan::GetInstance().GetPath();
-	if ( dlg.DoModal() == IDOK )
+	if (dlg.DoModal() == IDOK)
 	{
-		LoadFile( dlg.GetFileName().GetString() );
+		CString selectedFile = dlg.GetFileName();
+		LoadFile(std::string(selectedFile));
+
+		// Get the directory of the selected file
+		CString directoryPath = dlg.GetFolderPath();
+
+		// Find all EGP files in the directory
+		m_fileList.clear();
+		CFileFind finder;
+		BOOL bWorking = finder.FindFile(directoryPath + "\\*.egp");
+
+		while (bWorking)
+		{
+			bWorking = finder.FindNextFile();
+			if (!finder.IsDots() && !finder.IsDirectory())
+			{
+				m_fileList.push_back(finder.GetFileName());
+			}
+		}
+
+		// Set the current file index
+		auto it = std::find(m_fileList.begin(), m_fileList.end(), selectedFile);
+		m_currentFileIndex = 1;
 	}
 }
 
@@ -187,4 +221,9 @@ void CPageEGP::OnBnClickedButtonEgpSave()
 			CDebugSet::MsgBox( "Error Save File: %s", dlg.GetPathName().GetString() );
 		}
 	}
+}
+
+void CPageEGP::OnBnClickedButtonEgpNext()
+{
+	LoadNextFile();
 }

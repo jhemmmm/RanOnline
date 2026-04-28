@@ -51,6 +51,7 @@ BEGIN_MESSAGE_MAP(CPageCHF, CPropertyPage)
 	ON_BN_CLICKED(IDC_BUTTON_ABF, OnBnClickedButtonAbf)
 	ON_BN_CLICKED(IDC_BUTTON_PIECE_EFFSKIN_CHF, OnBnClickedButtonPieceEffskinChf)
 	ON_BN_CLICKED(IDC_BUTTON_PIECE_VCF, OnBnClickedButtonPieceVcf)
+	ON_BN_CLICKED(IDC_BUTTON_CHF_NEXT, OnBnClickedButtonChfNext)
 END_MESSAGE_MAP()
 
 
@@ -76,15 +77,47 @@ BOOL CPageCHF::OnInitDialog()
 	return TRUE;
 }
 
+void CPageCHF::LoadNextFile()
+{
+	if (m_fileList.empty())
+		return;
+
+	LoadFile(std::string(m_fileList[m_currentFileIndex]));
+	m_currentFileIndex++;
+}
+
+
 void CPageCHF::OnBnClickedButtonChfLoad()
 {
 	CString szFilter = "Container (*.chf)|*.chf;|";
 	CFileDialog dlg ( TRUE,".CHF", NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT, szFilter, this );
 
-	dlg.m_ofn.lpstrInitialDir = DxSkinCharDataContainer::GetInstance().GetPath ();
-	if ( dlg.DoModal() == IDOK )
+	dlg.m_ofn.lpstrInitialDir = DxSkinCharDataContainer::GetInstance().GetPath();
+	if (dlg.DoModal() == IDOK)
 	{
-		LoadFile( dlg.GetFileName().GetString() );
+		CString selectedFile = dlg.GetFileName();
+		LoadFile(dlg.GetFileName().GetString());
+
+		// Get the directory of the selected file
+		CString directoryPath = dlg.GetFolderPath();
+
+		// Find all CHF files in the directory
+		m_fileList.clear();
+		CFileFind finder;
+		BOOL bWorking = finder.FindFile(directoryPath + "\\*.chf");
+
+		while (bWorking)
+		{
+			bWorking = finder.FindNextFile();
+			if (!finder.IsDots() && !finder.IsDirectory())
+			{
+				m_fileList.push_back(finder.GetFileName().GetString());
+			}
+		}
+
+		// Set the current file index
+		auto it = std::find(m_fileList.begin(), m_fileList.end(), selectedFile);
+		m_currentFileIndex = 1;
 	}
 }
 
@@ -331,5 +364,7 @@ void CPageCHF::OnBnClickedButtonPieceVcf()
 	}
 }
 
-
-
+void CPageCHF::OnBnClickedButtonChfNext()
+{
+	LoadNextFile();
+}

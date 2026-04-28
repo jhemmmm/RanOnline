@@ -74,4 +74,6 @@ public:
 	afx_msg void OnBnClickedButtonMaterialSave();
 	afx_msg void OnNMDblclkListMaterial(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedButtonMaterialTexture();
+	afx_msg void OnBnClickedButtonNext();
+	afx_msg void OnBnClickedButtonPrev();
 };

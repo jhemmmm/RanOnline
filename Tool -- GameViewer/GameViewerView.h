@@ -53,6 +53,9 @@ public:
 	DxEffSingleGroup* m_pEffSingle;
 	EFF_PROPGROUP*  m_pPropGroup;
 
+	DxSkinPiece*	m_pSkinPiece;
+	DxCharPart*  m_pCharPart;
+
 	/*ABL system, Juver, 2017/06/02 */
 	DxAttBone*			m_pAttBone;
 	DxAttBoneRender*	m_pAttBoneRender;

@@ -477,6 +477,8 @@
 #define IDC_BUTTON_CS2_TEXTURE          1352
 #define IDC_EDIT_CS2_CUBETEXTURE        1353
 #define IDC_CHECK_CUC_FLAG_USE_COLOR_1  1354
+#define IDC_BUTTON_NEXT					1355
+#define IDC_BUTTON_PREV					1356
 #define ID_VIEW_EDITORTOOLBAR           32771
 #define ID_BUTTON32772                  32772
 #define ID_FILE_SAVE2                   32773

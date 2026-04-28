@@ -1,126 +1,69 @@
+
 #pragma once
 
-#include "d3dx9.h"
+#ifndef WINVER
+#define WINVER 0x0501
+#endif
 
-class CMyAllocateHierarchy : public ID3DXAllocateHierarchy {
-public:
-	STDMETHOD(CreateFrame)(THIS_ LPCSTR Name, LPD3DXFRAME* ppNewFrame);
-	STDMETHOD(CreateMeshContainer)(THIS_ LPCSTR Name, CONST D3DXMESHDATA* pMeshData,
-		CONST D3DXMATERIAL* pMaterials, CONST D3DXEFFECTINSTANCE* pEffectInstances,
-		DWORD NumMaterials, CONST DWORD* pAdjacency, LPD3DXSKININFO pSkinInfo,
-		LPD3DXMESHCONTAINER* ppNewMeshContainer);
-	STDMETHOD(DestroyFrame)(THIS_ LPD3DXFRAME pFrameToFree);
-	STDMETHOD(DestroyMeshContainer)(THIS_ LPD3DXMESHCONTAINER pMeshContainerBase);
-};
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#endif
 
-STDMETHODIMP CMyAllocateHierarchy::CreateFrame(LPCSTR Name, LPD3DXFRAME* ppNewFrame) {
-	*ppNewFrame = new D3DXFRAME();
-	if (*ppNewFrame == nullptr) {
-		return E_OUTOFMEMORY;
-	}
-	ZeroMemory(*ppNewFrame, sizeof(D3DXFRAME));
+#ifndef _WIN32_WINDOWS
+#define _WIN32_WINDOWS 0x0501
+#endif
 
-	if (Name) {
-		(*ppNewFrame)->Name = _strdup(Name);
-		if ((*ppNewFrame)->Name == nullptr) {
-			delete* ppNewFrame;
-			return E_OUTOFMEMORY;
-		}
-	}
-	else {
-		(*ppNewFrame)->Name = nullptr;
-	}
+#ifndef _WIN32_IE
+#define _WIN32_IE 0x0501
+#endif
 
-	(*ppNewFrame)->pFrameFirstChild = nullptr;
-	(*ppNewFrame)->pFrameSibling = nullptr;
-	(*ppNewFrame)->pMeshContainer = nullptr;
 
-	return S_OK;
-}
+#ifndef VC_EXTRALEAN
+#define VC_EXTRALEAN            // Exclude rarely-used stuff from Windows headers
+#endif
 
-STDMETHODIMP CMyAllocateHierarchy::CreateMeshContainer(LPCSTR Name, CONST D3DXMESHDATA* pMeshData,
-	CONST D3DXMATERIAL* pMaterials, CONST D3DXEFFECTINSTANCE* pEffectInstances,
-	DWORD NumMaterials, CONST DWORD* pAdjacency, LPD3DXSKININFO pSkinInfo,
-	LPD3DXMESHCONTAINER* ppNewMeshContainer) {
-	if (pMeshData == nullptr || pMeshData->Type != D3DXMESHTYPE_MESH) {
-		return E_FAIL;
-	}
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
 
-	*ppNewMeshContainer = new D3DXMESHCONTAINER();
-	if (*ppNewMeshContainer == nullptr) {
-		return E_OUTOFMEMORY;
-	}
-	ZeroMemory(*ppNewMeshContainer, sizeof(D3DXMESHCONTAINER));
+// turns off MFC's hiding of some common and often safely ignored warning messages
+#define _AFX_ALL_WARNINGS
 
-	if (Name) {
-		(*ppNewMeshContainer)->Name = _strdup(Name);
-		if ((*ppNewMeshContainer)->Name == nullptr) {
-			delete* ppNewMeshContainer;
-			return E_OUTOFMEMORY;
-		}
-	}
-	else {
-		(*ppNewMeshContainer)->Name = nullptr;
-	}
+#include <afxwin.h>         // MFC core and standard components
+#include <afxext.h>         // MFC extensions
 
-	(*ppNewMeshContainer)->MeshData.Type = D3DXMESHTYPE_MESH;
-	(*ppNewMeshContainer)->MeshData.pMesh = pMeshData->pMesh;
-	if (pMeshData->pMesh) {
-		pMeshData->pMesh->AddRef();
-	}
 
-	(*ppNewMeshContainer)->NumMaterials = NumMaterials;
-	(*ppNewMeshContainer)->pMaterials = new D3DXMATERIAL[NumMaterials];
-	if ((*ppNewMeshContainer)->pMaterials == nullptr) {
-		delete* ppNewMeshContainer;
-		return E_OUTOFMEMORY;
-	}
-	memcpy((*ppNewMeshContainer)->pMaterials, pMaterials, sizeof(D3DXMATERIAL) * NumMaterials);
+#include <afxdisp.h>        // MFC Automation classes
 
-	(*ppNewMeshContainer)->pAdjacency = new DWORD[pMeshData->pMesh->GetNumFaces() * 3];
-	if ((*ppNewMeshContainer)->pAdjacency == nullptr) {
-		delete[](*ppNewMeshContainer)->pMaterials;
-		delete* ppNewMeshContainer;
-		return E_OUTOFMEMORY;
-	}
-	memcpy((*ppNewMeshContainer)->pAdjacency, pAdjacency, sizeof(DWORD) * pMeshData->pMesh->GetNumFaces() * 3);
 
-	(*ppNewMeshContainer)->pSkinInfo = pSkinInfo;
-	if (pSkinInfo) {
-		pSkinInfo->AddRef();
-	}
 
-	return S_OK;
-}
+#ifndef _AFX_NO_OLE_SUPPORT
+#include <afxdtctl.h>           // MFC support for Internet Explorer 4 Common Controls
+#endif
+#ifndef _AFX_NO_AFXCMN_SUPPORT
+#include <afxcmn.h>             // MFC support for Windows Common Controls
+#endif // _AFX_NO_AFXCMN_SUPPORT
 
-STDMETHODIMP CMyAllocateHierarchy::DestroyFrame(LPD3DXFRAME pFrameToFree) {
-	if (pFrameToFree) {
-		if (pFrameToFree->Name) {
-			free(pFrameToFree->Name);
-		}
-		delete pFrameToFree;
-	}
-	return S_OK;
-}
+#include "dxstdafx.h"
 
-STDMETHODIMP CMyAllocateHierarchy::DestroyMeshContainer(LPD3DXMESHCONTAINER pMeshContainerBase) {
-	if (pMeshContainerBase) {
-		if (pMeshContainerBase->Name) {
-			free(pMeshContainerBase->Name);
-		}
-		if (pMeshContainerBase->MeshData.pMesh) {
-			pMeshContainerBase->MeshData.pMesh->Release();
-		}
-		if (pMeshContainerBase->pMaterials) {
-			delete[] pMeshContainerBase->pMaterials;
-		}
-		if (pMeshContainerBase->pAdjacency) {
-			delete[] pMeshContainerBase->pAdjacency;
-		}
-		if (pMeshContainerBase->pSkinInfo) {
-			pMeshContainerBase->pSkinInfo->Release();
-		}
-		delete pMeshContainerBase;
-	}
-	return S_OK;
-}
+#include <windows.h>
+#include <algorithm>
+#include <cctype>
+#include <deque>
+#include <fstream>
+#include <set>
+#include <map>
+#include <hash_map>
+#include <hash_set>
+#include <list>
+#include <queue>
+#include <string>
+#include <vector>
+#include <iterator> 
+#include <iostream>
+
+#include "GLDefine.h"
+#include "DxEffGroupPlayer.h"
+#include "DxEffSingle.h"
+
+bool CreateD3DDevice(LPDIRECT3DDEVICEQ& pd3dDevice);
+
+std::vector<std::string> GetFilesInFolder(const std::string& folder);

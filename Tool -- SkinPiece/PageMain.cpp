@@ -63,6 +63,8 @@ BEGIN_MESSAGE_MAP(CPageMain, CPropertyPage)
 	ON_BN_CLICKED(IDC_BUTTON_MATERIAL_SAVE, OnBnClickedButtonMaterialSave)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST_MATERIAL, OnNMDblclkListMaterial)
 	ON_BN_CLICKED(IDC_BUTTON_MATERIAL_TEXTURE, OnBnClickedButtonMaterialTexture)
+	ON_BN_CLICKED(IDC_BUTTON_NEXT, OnBnClickedButtonNext)
+	ON_BN_CLICKED(IDC_BUTTON_PREV, OnBnClickedButtonPrev)
 END_MESSAGE_MAP()
 
 
@@ -126,6 +128,23 @@ BOOL CPageMain::OnInitDialog()
 	ResetTool();
 
 	return TRUE;  
+}
+
+void CPageMain::OnBnClickedButtonNext()
+{
+	CEditorSkinPieceView* pView = CEditorSkinPieceView::GetView();
+
+	if (pView)
+		pView->LoadNextFile();
+}
+
+
+void CPageMain::OnBnClickedButtonPrev()
+{
+	CEditorSkinPieceView* pView = CEditorSkinPieceView::GetView();
+
+	if (pView)
+		pView->LoadPrevFile();
 }
 
 void CPageMain::SetData( DxSkinPiece* pDATA )
@@ -368,25 +387,6 @@ void CPageMain::OnBnClickedButtonTraceAdd()
 	if ( !m_pPiece )	return;
 	if ( !m_pPiece->m_pmcMesh )	return;
 
-	int nSelect = m_List_Trace.GetNextItem(-1, LVNI_ALL | LVNI_SELECTED);
-	if( nSelect == -1 ) return;
-
-	std::string str = m_List_Trace.GetItemText( nSelect, 0 );
-	D3DXVECTOR3 vPOS = CEditorSkinPieceView::GetView()->m_vCOL;
-	DWORD dwCOLID = CEditorSkinPieceView::GetView()->m_dwCOL;
-
-	if ( vPOS != D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) && dwCOLID != COL_ERR )
-	{
-		SVERTEXINFLU sVertex;
-		m_pPiece->DelTracePos( str.c_str() );
-		m_pPiece->SetTracePos( str.c_str(), sVertex );
-
-		SVERTEXINFLU* pVertex = m_pPiece->GetTracePos( str.c_str() );
-		if ( pVertex )
-			m_pPiece->m_pmcMesh->GetVertexInfluences( dwCOLID, pVertex );
-		
-		ShowTrace();
-	}
 }
 
 void CPageMain::OnBnClickedButtonTraceDel()
@@ -568,6 +568,3 @@ void CPageMain::OnBnClickedButtonMaterialTexture()
 	dlg.m_ofn.lpstrInitialDir = TextureManager::GetTexturePath(); 
 	if ( dlg.DoModal() == IDOK )	SetWin_Text ( this, IDC_EDIT_ZTEXTURE, dlg.GetFileName().GetString() );
 }
-
-
-

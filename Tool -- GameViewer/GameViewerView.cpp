@@ -88,6 +88,7 @@ CGameViewerView::CGameViewerView()
 	, m_dwANIPLAY( 0 )
 	, m_pPIE(NULL)
 
+	, m_pCharPart(NULL)
 	/*ABL system, Juver, 2017/06/02 */
 	, m_pAttBone(NULL)
 	, m_pAttBoneRender(NULL)
